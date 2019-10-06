@@ -14,6 +14,7 @@ public class Dog : MonoBehaviour, IHittable
     private float minRotSpeed = 60;
     private float maxRotSpeed = 180;
     private float acceleration = 20;
+    public float MaxSpeed { get => maxSpeed; }
 
     float reach = 3;
 
@@ -31,6 +32,8 @@ public class Dog : MonoBehaviour, IHittable
     float attackTimer;
     float attackCooldown = 1.5f;
 
+    public DogAnimator animator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +46,7 @@ public class Dog : MonoBehaviour, IHittable
     {
         stateMachine.Tick(Time.deltaTime);
         transform.position += transform.rotation * currentVelocity * Time.fixedDeltaTime;
+        animator.CurrentVelocity = currentVelocity;
     }
 
     private FiniteStateMachine<DogState> InitFSM()
@@ -105,7 +109,7 @@ public class Dog : MonoBehaviour, IHittable
                 float targetDist = reach * .75f;
                 float targetDistDiff = distance - targetDist; // positive is to far away, negative too close.
                 float targetDistDiffValue = targetDistDiff / targetDist;
-                float targetVel = Mathf.Lerp(-1, 1, targetDistDiffValue) * maxSpeed;
+                float targetVel = Mathf.Lerp(-1, 1, targetDistDiffValue / 2 + .5f) * maxSpeed;
 
                 float z = currentVelocity.z;
                 float targetVelDiff = z - targetVel; // positive is too fast, negative too slow
@@ -119,25 +123,25 @@ public class Dog : MonoBehaviour, IHittable
                 {
                     Attack();
                     attackTimer = attackCooldown;
+                    animator.StartAttack();
+                    Debug.Log("Attack");
                 }
             }
         };
         FiniteStateMachine<DogState>.TransientAction[] openingActions = new FiniteStateMachine<DogState>.TransientAction[3];
         openingActions[(int)DogState.Wandering] = (handle) =>
         {
-            Debug.Log("Wandering");
             NextWanderPoint = FindNewWanderPoint();
             wanderTimer = 0;
         };
         openingActions[(int)DogState.Searching] = (handle) =>
         {
-            Debug.Log("Searching");
             searchTimer = searchCooldown / 2;
             nextSearchDirection = -transform.rotation.eulerAngles.y + 90;
         };
         openingActions[(int)DogState.Attacking] = (handle) =>
         {
-            Debug.Log("Attacking");
+
         };
         FiniteStateMachine<DogState>.TransientAction[] closingActions = new FiniteStateMachine<DogState>.TransientAction[3];
         closingActions[(int)DogState.Wandering] = (handle) =>
@@ -216,7 +220,7 @@ public class Dog : MonoBehaviour, IHittable
     private void Attack()
     {
         Ray ray = new Ray(transform.position + Vector3.up, transform.forward);
-        int mask = LayerMask.GetMask("Alies");
+        int mask = LayerMask.GetMask("Allies");
         RaycastHit[] hits = Physics.RaycastAll(ray, reach, mask);
         Debug.DrawRay(ray.origin, ray.direction * reach, Color.blue, 10);
         if (hits.Length != 0)

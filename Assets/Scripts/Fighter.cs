@@ -32,9 +32,10 @@ class Fighter
         int attackRoll = UnityEngine.Random.Range(0, attackRating) + 1;
         if (attackRoll > defenceRoll)
         {
+            UnityEngine.Debug.Log("Successfull hit");
             hp--;
             if (hp <= 0)
                 isAlive = false;
-        }
+        } else UnityEngine.Debug.Log("Deflection");
     }
 }

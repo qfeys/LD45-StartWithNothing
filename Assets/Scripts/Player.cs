@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IHittable
 {
 
     float maxSpeed = 5;
@@ -84,5 +84,10 @@ public class Player : MonoBehaviour
             }
 
         }
+    }
+
+    public void GetHit(int attackRating, bool ArmorPiercing = false, bool evasive = false)
+    {
+        fighter.GetHit(attackRating, ArmorPiercing, evasive);
     }
 }
