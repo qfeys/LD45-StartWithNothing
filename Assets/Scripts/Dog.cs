@@ -23,13 +23,13 @@ public class Dog : MonoBehaviour, IHittable
     float WanderCooldown = 8;
 
     float searchTimer;
-    float searchCooldown = 2;
+    float searchCooldown = 1.2f;
     float nextSearchDirection;
 
 
     Transform attackTarget;
     float attackTimer;
-    float attackCooldown = 2;
+    float attackCooldown = 1.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -89,7 +89,6 @@ public class Dog : MonoBehaviour, IHittable
                 if (UnityEngine.Random.value > .8f)
                     handle.ChangeState(DogState.Wandering);
                 nextSearchDirection = UnityEngine.Random.Range(0f, 360);
-                Debug.Log("nextSearchDir: " + nextSearchDirection);
             }
             TurnTowardTarget(nextSearchDirection);
         };
@@ -202,7 +201,6 @@ public class Dog : MonoBehaviour, IHittable
     {
         float[] headings = new float[17] { 0, -.5f, .5f, -1, 1, -1.5f, 1.5f, -2, 2, -2.5f, 2.5f, -3, 3, -5, 5, -7, 7 };
         float ownHeading = (-transform.rotation.eulerAngles.y + 90) * Mathf.Deg2Rad;
-        Debug.Log("ownHeading: " + ownHeading*Mathf.Rad2Deg);
         for (int i = 0; i < headings.Length; i++)
         {
             RaycastHit hit = new RaycastHit();

@@ -6,12 +6,19 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
+    static LevelGenerator instance;
 
     public GameObject floorPrefab;
     public GameObject wallPrefab1;
     public GameObject wallPrefab2;
+    public GameObject dogPrefab;
 
     List<ISpace> currentLevel;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +54,16 @@ public class LevelGenerator : MonoBehaviour
         }
 
         currentLevel.ForEach(sp => sp.GenerateGameobjects(floorPrefab, wallPrefab1, wallPrefab2));
+    }
+
+    private void SpawnDogsAround(Vector2 center, int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            GameObject dog = Instantiate(dogPrefab, transform);
+            Vector2 pos = Helpers.PlaceInSpiral(i + 2, .5f) + center;
+            dog.transform.localPosition = new Vector3(pos.x, 0, pos.y);
+        }
     }
 
     interface ISpace
@@ -157,6 +174,7 @@ public class LevelGenerator : MonoBehaviour
             BuildRoomWall(wallPrefab1, wallPrefab2, 2, third, fourth, gos);
             BuildRoomWall(wallPrefab1, wallPrefab2, 3, fourth, first, gos);
 
+            LevelGenerator.instance.SpawnDogsAround(box.center, depth);
             return gos;
         }
 

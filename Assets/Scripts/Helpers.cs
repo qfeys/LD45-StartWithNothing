@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using UnityEngine;
 
 
 static class Helpers
@@ -16,6 +12,16 @@ static class Helpers
             return diff - modulo;
         else
             return diff;
+    }
+
+    const float goldenRatio = 1.6180f;
+
+    static public Vector2 PlaceInSpiral(int index, float distance)
+    {
+        float angleIncrement = Mathf.PI * 2 * goldenRatio;
+        float radius = (float)index * distance;
+        float angle = angleIncrement * index;
+        return new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
     }
 }
 
