@@ -403,6 +403,7 @@ public class LevelGenerator : MonoBehaviour
         GameObject go = Instantiate(floorPrefab);
         go.transform.localScale = new Vector3(box.width / 10, 1, box.height / 10);
         go.transform.position = new Vector3(box.center.x, 0, box.center.y);
+        go.GetComponent<Renderer>().material.mainTextureScale = new Vector2(box.width/5, box.height/5);
         return go;
     }
 
@@ -414,6 +415,7 @@ public class LevelGenerator : MonoBehaviour
         go.transform.position = new Vector3((startPoint+endPoint).x / 2, 2, (startPoint + endPoint).z / 2);
         float angle = Mathf.Atan2(startPoint.z - endPoint.z, endPoint.x - startPoint.x) * Mathf.Rad2Deg;
         go.transform.rotation = Quaternion.Euler(-90, angle, 0);
+        go.GetComponent<Renderer>().material.mainTextureScale = new Vector2(go.transform.localScale.x, go.transform.localScale.z);
         return go;
     }
 }
