@@ -48,7 +48,6 @@ public class Player : MonoBehaviour
         {
             float x = currentVelocity.x;
             x += acceleration * Time.fixedDeltaTime * Mathf.Clamp(-x / maxSpeed * 2, -.5f, .5f);
-            //x += acceleration * Time.fixedDeltaTime * (x == 0 ? 0 : x > 0 ? -.5f : .5f);
             currentVelocity.x = Mathf.Clamp(x, -maxSpeed, maxSpeed);
         }
         if (Input.GetButton("Vertical"))
@@ -59,7 +58,6 @@ public class Player : MonoBehaviour
         {
             float z = currentVelocity.z;
             z += acceleration * Time.fixedDeltaTime * Mathf.Clamp(-z / maxSpeed * 2, -.5f, 1);
-            //z += acceleration * Time.fixedDeltaTime * (z == 0 ? 0 : z > 0 ? -.5f : 1);
             currentVelocity.z = Mathf.Clamp(z, -maxSpeed, maxSpeed);
         }
 
@@ -75,13 +73,11 @@ public class Player : MonoBehaviour
             int mask = LayerMask.GetMask("Enemies");
             RaycastHit[] hits = Physics.RaycastAll(ray, reach, mask);
             Debug.DrawRay(ray.origin, ray.direction * reach, Color.blue, 10);
-            Debug.Log("Raycasting");
             if (hits.Length !=0)
             {
                 IHittable enemy = hits[0].collider.GetComponentInParent<IHittable>();
                 if (enemy != null)
                 {
-                    Debug.Log("Enemy type: " + enemy.GetType());
                     enemy.GetHit(fighter.Attack);
                 }
 

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3548545893916932170}
   - component: {fileID: 2142763731}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AnimationContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,10 +47,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SwordArm: {fileID: 5374364287579715596}
-  swordNeutralPos: {x: 0.6, y: 1.2, z: 0.4}
-  swordNeutralRot: {x: 60, y: 0, z: 0}
-  swordFwdPos: {x: 0.5, y: 1, z: 0.4}
-  swordFwdRot: {x: 90, y: -10, z: 0}
 --- !u!1 &5374364287579715596
 GameObject:
   m_ObjectHideFlags: 0
@@ -63,7 +59,7 @@ GameObject:
   - component: {fileID: 5374364287579715592}
   - component: {fileID: 5374364287579715595}
   - component: {fileID: 5374364287579715594}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Right Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +150,7 @@ GameObject:
   - component: {fileID: 5374364287956471676}
   - component: {fileID: 1883013868}
   - component: {fileID: 1883013869}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +235,7 @@ GameObject:
   - component: {fileID: 5374364287975376453}
   - component: {fileID: 5374364287975376452}
   - component: {fileID: 5374364287975376455}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Left Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -330,7 +326,7 @@ GameObject:
   - component: {fileID: 5374364288101601163}
   - component: {fileID: 5374364288101601162}
   - component: {fileID: 5374364288101601165}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -419,7 +415,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4600276335664191637}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

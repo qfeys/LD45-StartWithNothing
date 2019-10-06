@@ -1,9 +1,33 @@
 ﻿
 
 
-Fix generation of hallway walls by using the initial direction and remebering the direction of the corridor.
 
+Dog: 
+	Wandering
+	Searching
+	Attacking
+	Animate
 
-After that: make enemies, make other soldiers
+Companion:
+	Following
+	Attacking
+	Forming up
 
-everything else is optional.
+Goliath:
+	Standing still
+	Attacking
+
+Maze:
+	Spawn Mobs
+	Cells
+	Roof
+	Stairs
+	Next Level
+
+Loot:
+	Something
+
+UI:
+	Life
+	Current strength
+	Give commands

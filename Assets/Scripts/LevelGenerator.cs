@@ -90,12 +90,12 @@ public class LevelGenerator : MonoBehaviour
             Room room = new Room();
             room.level = level;
             if (previous == null) {
-                room.box = new RectInt(-10, -10, 20, 20);
+                room.box = new RectInt(-20, -20, 40, 40);
                 room.depth = 0;
             } else {
                 room.hallWays[((int)buildingDirection + 2) % 4] = previous;
-                int width = UnityEngine.Random.Range(10, 30);
-                int height = UnityEngine.Random.Range(10, 30);
+                int width = UnityEngine.Random.Range(20, 50);
+                int height = UnityEngine.Random.Range(20, 50);
                 switch (buildingDirection)
                 {
                 case Cardinal.NORTH:
@@ -123,6 +123,7 @@ public class LevelGenerator : MonoBehaviour
         public List<ISpace> GenerateNext()
         {
             List<ISpace> ways = new List<ISpace>();
+            int hallHalfWidth = 2;
             for (int i = 0; i < 4; i++)
             {
                 if (hallWays[i] != null) continue;                      // Is already used
@@ -130,13 +131,13 @@ public class LevelGenerator : MonoBehaviour
                 Vector2Int startPos = Vector2Int.zero;
                 switch ((Cardinal)i)
                 {
-                case Cardinal.NORTH: startPos = new Vector2Int(box.xMin + UnityEngine.Random.Range(2, box.width - 3), box.yMax); break;
-                case Cardinal.EAST: startPos = new Vector2Int(box.xMax, box.yMin + UnityEngine.Random.Range(2, box.height - 3)); break;
-                case Cardinal.SOUTH: startPos = new Vector2Int(box.xMin + UnityEngine.Random.Range(2, box.width - 3), box.yMin); break;
-                case Cardinal.WEST: startPos = new Vector2Int(box.xMin, box.yMin + UnityEngine.Random.Range(2, box.height - 3)); break;
+                case Cardinal.NORTH: startPos = new Vector2Int(box.xMin + UnityEngine.Random.Range(hallHalfWidth + 1, box.width - hallHalfWidth - 2), box.yMax); break;
+                case Cardinal.EAST: startPos = new Vector2Int(box.xMax, box.yMin + UnityEngine.Random.Range(hallHalfWidth + 1, box.height - hallHalfWidth - 2)); break;
+                case Cardinal.SOUTH: startPos = new Vector2Int(box.xMin + UnityEngine.Random.Range(hallHalfWidth + 1, box.width - hallHalfWidth - 2), box.yMin); break;
+                case Cardinal.WEST: startPos = new Vector2Int(box.xMin, box.yMin + UnityEngine.Random.Range(hallHalfWidth + 1, box.height - hallHalfWidth - 2)); break;
                 default: throw new Exception();
                 }
-                hallWays[i] = HallWay.Generate(this, (Cardinal)i, startPos, level);
+                hallWays[i] = HallWay.Generate(this, (Cardinal)i, startPos, hallHalfWidth, level);
                 ways.Add(hallWays[i]);
             }
             return ways;
@@ -212,13 +213,13 @@ public class LevelGenerator : MonoBehaviour
                 Mathf.Abs(startPoint.y - endPoint.y)
                 );
 
-        public static HallWay Generate(Room previous, Cardinal buildingDirection, Vector2Int startPos, int level)
+        public static HallWay Generate(Room previous, Cardinal buildingDirection, Vector2Int startPos, float halfWidth, int level)
         {
             HallWay hallWay = new HallWay();
             hallWay.rooms[0] = previous;
             hallWay.startPoint = startPos;
-            int length1 = UnityEngine.Random.Range(10, 30);
-            int length2 = UnityEngine.Random.Range(5, 35);
+            int length1 = UnityEngine.Random.Range(15, 60);
+            int length2 = UnityEngine.Random.Range(10, 70);
             Vector2Int dir = GetDir(buildingDirection);
             hallWay.wayPoint = startPos + dir * length1;
             hallWay.turnRight = UnityEngine.Random.value > 0.5;
