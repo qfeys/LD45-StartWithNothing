@@ -1,0 +1,9 @@
+﻿
+
+
+Fix generation of hallway walls by using the initial direction and remebering the direction of the corridor.
+
+
+After that: make enemies, make other soldiers
+
+everything else is optional.
